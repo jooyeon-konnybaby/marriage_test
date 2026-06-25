@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>내가 생각하는 결혼</title>
+<meta property="og:title" content="내가 생각하는 결혼은?">
+<meta property="og:description" content="나의 결혼관을 담은 18가지 질문에 답한 결과예요.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#FFF8FA;min-height:100vh}
+.wrap{max-width:480px;margin:0 auto;padding:20px 16px 40px}
+.header{text-align:center;padding:32px 0 24px}
+.header .heart{font-size:32px;margin-bottom:10px}
+.header h1{font-size:20px;font-weight:600;color:#2C2C2A;letter-spacing:-0.3px}
+.header p{font-size:13px;color:#888;margin-top:6px}
+
+.prog-wrap{margin-bottom:24px}
+.prog-bar{height:4px;background:#F0E0E6;border-radius:2px}
+.prog-fill{height:100%;background:#D4537E;border-radius:2px;transition:width .35s ease}
+.step-count{font-size:11px;color:#999;text-align:right;margin-top:6px}
+
+.card{background:#fff;border-radius:16px;padding:24px 20px;box-shadow:0 1px 12px rgba(212,83,126,0.08)}
+
+.tag{display:inline-block;font-size:11px;background:#FBEAF0;color:#993556;padding:4px 12px;border-radius:20px;margin-bottom:12px;font-weight:600}
+.q-num{font-size:12px;color:#D4537E;font-weight:600;margin-bottom:6px}
+.q-text{font-size:18px;font-weight:600;color:#2C2C2A;line-height:1.5;margin-bottom:20px}
+
+textarea{width:100%;border:1.5px solid #F0E0E6;border-radius:12px;padding:13px 15px;font-size:15px;font-family:inherit;color:#2C2C2A;background:#FFFBFC;resize:none;line-height:1.7;transition:border-color .2s}
+textarea.short{min-height:60px}
+textarea.tall{min-height:110px}
+textarea:focus{outline:none;border-color:#D4537E;background:#fff}
+
+.choices{display:flex;flex-direction:column;gap:10px}
+.cb{width:100%;text-align:left;padding:14px 16px;border:1.5px solid #F0E0E6;border-radius:12px;background:#FFFBFC;color:#2C2C2A;font-size:14px;cursor:pointer;font-family:inherit;transition:all .15s;line-height:1.4}
+.cb:active{transform:scale(0.98)}
+.cb.sel{border-color:#D4537E;background:#FFF0F5;color:#993556;font-weight:600}
+
+.ml-group{display:flex;flex-direction:column;gap:14px}
+.ml-label{font-size:12px;color:#999;margin-bottom:6px;font-weight:500}
+input[type=text]{width:100%;border:1.5px solid #F0E0E6;border-radius:12px;padding:13px 15px;font-size:15px;font-family:inherit;color:#2C2C2A;background:#FFFBFC;transition:border-color .2s}
+input[type=text]:focus{outline:none;border-color:#D4537E;background:#fff}
+
+.nav{display:flex;gap:10px;margin-top:20px}
+.btn-p{padding:14px 18px;border:1.5px solid #E8E8E8;border-radius:12px;background:#fff;color:#888;font-size:14px;cursor:pointer;font-family:inherit}
+.btn-n{flex:1;padding:15px;border:none;border-radius:12px;background:#D4537E;color:#fff;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:-0.2px}
+.btn-n:disabled{background:#E0D0D5;cursor:not-allowed}
+
+.final-screen{display:none;text-align:center;padding:40px 0 20px}
+.final-screen .icon{font-size:56px;margin-bottom:16px}
+.final-screen h2{font-size:24px;font-weight:700;color:#2C2C2A;margin-bottom:10px}
+.final-screen p{font-size:15px;color:#888;line-height:1.7;margin-bottom:36px}
+.act-row{display:flex;gap:10px;margin-bottom:20px}
+.btn-result{flex:1;padding:16px;border:none;border-radius:14px;background:#D4537E;color:#fff;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit}
+.btn-share{flex:1;padding:16px;border:2px solid #D4537E;border-radius:14px;background:#fff;color:#D4537E;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit}
+
+.result-wrap{display:none;text-align:left;padding-top:16px}
+.result-header{font-size:20px;font-weight:700;color:#2C2C2A;margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid #F0E0E6}
+.r-item{padding:16px 0;border-bottom:1px solid #F5F0F2}
+.r-q{font-size:11px;color:#D4537E;font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px}
+.r-a{font-size:15px;color:#2C2C2A;line-height:1.7;white-space:pre-wrap}
+
+.btn-retry{width:100%;margin-top:24px;padding:14px;border:1.5px solid #E8E8E8;border-radius:12px;background:#fff;color:#888;font-size:14px;cursor:pointer;font-family:inherit}
+
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:#2C2C2A;color:#fff;padding:12px 24px;border-radius:24px;font-size:14px;white-space:nowrap;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
+.toast.show{opacity:1}
+
+.view-result-card{background:#fff;border-radius:16px;padding:24px 20px;box-shadow:0 1px 12px rgba(212,83,126,0.08)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="header">
+    <div class="heart">💍</div>
+    <h1>내가 생각하는 결혼</h1>
+    <p>하트페어링 북 · Chapter 3</p>
+  </div>
+
+  <div id="quizSection">
+    <div class="prog-wrap">
+      <div class="prog-bar"><div class="prog-fill" id="prog"></div></div>
+      <div class="step-count" id="sc"></div>
+    </div>
+    <div class="card">
+      <div id="qbody"></div>
+      <div class="nav" id="nav">
+        <button class="btn-p" id="btnP" onclick="go(-1)">← 이전</button>
+        <button class="btn-n" id="btnN" onclick="go(1)">다음 →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="final-screen" id="finalSection">
+    <div class="icon">🎉</div>
+    <h2>모든 질문에 답했어요!</h2>
+    <p>나의 결혼관을 확인하거나<br>친구에게 카카오톡으로 공유해보세요.</p>
+    <div class="act-row">
+      <button class="btn-result" onclick="showResult()">결과 보기</button>
+      <button class="btn-share" onclick="showShare()">공유하기</button>
+    </div>
+
+    <div id="sharePanel" style="display:none;margin-top:8px;border-radius:16px;overflow:hidden;border:1.5px solid #F0E0E6">
+      <div style="background:#FBEAF0;padding:12px 16px;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:14px;color:#993556;font-weight:600">공유 링크</span>
+        <button id="copyBtn" onclick="copyLink()" style="padding:7px 16px;border:none;border-radius:10px;background:#D4537E;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">링크 복사</button>
+      </div>
+      <div style="padding:14px 16px;font-size:13px;color:#2C2C2A;background:#fff;word-break:break-all;line-height:1.6" id="shareUrl"></div>
+      <div style="font-size:12px;color:#888;padding:10px 16px 12px;background:#FFF8FA;line-height:1.5">링크를 복사해서 카카오톡으로 보내세요. 친구가 링크를 열면 내 답변이 그대로 보여요.</div>
+    </div>
+
+    <div class="result-wrap" id="resultWrap">
+      <div class="view-result-card">
+        <div class="result-header">💍 내가 생각하는 결혼</div>
+        <div id="resultList"></div>
+        <button class="btn-retry" onclick="retry()">↩ 처음부터 다시 응답하기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const Qs=[
+  {id:'q1',num:'1',text:'배우자로서 나의 매력',type:'textarea'},
+  {id:'q2',num:'2',text:'내가 배우자에게 원하는 3가지',type:'textarea'},
+  {id:'q3',num:'3',text:'결혼 전 상대에게 꼭 확인해 보고 싶은 3가지',type:'textarea'},
+  {id:'q4',num:'4',text:'함께 살 집 마련은?',type:'choice',tag:'결혼 스피드 Q&A',opts:['빚 안고 자가','빚 없이 전세']},
+  {id:'q5',num:'5',text:'함께 살고 싶은 동네는?',type:'textarea',tag:'결혼 스피드 Q&A',short:true},
+  {id:'q6',num:'6',text:'내가 희망하는 우리 부부의 월수입은?',type:'choice',tag:'결혼 스피드 Q&A',opts:['월 500~800만원','월 800~1000만원','월 1000~1500만원','월 1500만원 이상']},
+  {id:'q7',num:'7',text:'경제 관리는 누가?',type:'choice',tag:'결혼 스피드 Q&A',opts:['각자 벌어서 각자 관리','생활비만 각출','모든 수입 공개, 한 사람이 관리']},
+  {id:'q8',num:'8',text:'결혼 후, 내가 원하는 수면 형태는?',type:'choice',tag:'결혼 스피드 Q&A',opts:['같은 방 한 침대','같은 방 침대 따로','각자 방에서 숙면']},
+  {id:'q9',num:'9',text:'결혼 후, 명절을 보내고 싶은 방식은?',type:'choice',tag:'결혼 스피드 Q&A',opts:['양가 방문','명절 전 양가 방문, 명절 연휴는 우리끼리']},
+  {id:'q10',num:'10',text:'반려동물과 함께 살 수 있는지?',type:'choice',tag:'결혼 스피드 Q&A',opts:['없다','반려견','반려묘','둘 다','기타']},
+  {id:'q11',num:'11',text:'차 한 대, 소파 하나, 신발 한 켤레에\n쓸 수 있는 최대 금액은?',type:'multi',inputs:['차 한 대','소파 하나','신발 한 켤레']},
+  {id:'q12',num:'12',text:'내가 생각하는 부부의 사생활 범위\n(복수 선택 가능)',type:'multisel',opts:['주말에 각자 취미생활 가능','혼자 혹은 친구랑 여행 가능','각자 쇼핑, 문화 생활 가능']},
+  {id:'q13',num:'13',text:'어느 날 배우자가 5억원의 빚이\n생겼다고 말한다면',type:'textarea'},
+  {id:'q14',num:'14',text:'출근 전날 밤 10시에\n부부싸움이 났다면',type:'choice',opts:['더 큰 싸움을 피하기 위해 각자의 공간에서 잔다','싸워도 잠은 한 침대에서 잔다','완전히 해결될 때까지 안 잔다']},
+  {id:'q15',num:'15',text:'내가 원하는 가사 분담',type:'multi',inputs:['가장 자신 있는 집안일','가장 자신 없는 집안일']},
+  {id:'q16',num:'16',text:'결혼식은?',type:'choice',opts:['또 하고 싶다','생략하고 싶다']},
+  {id:'q17',num:'17',text:'배우자와 꼭 함께하고 싶은\n일상의 한 장면',type:'textarea'},
+  {id:'q18',num:'18',text:'내가 생각하는 결혼이란',type:'textarea'},
+];
+
+let cur=0, answers={};
+
+function render(){
+  const q=Qs[cur];
+  const total=Qs.length;
+  document.getElementById('prog').style.width=((cur+1)/total*100)+'%';
+  document.getElementById('sc').textContent=(cur+1)+' / '+total;
+  document.getElementById('btnP').style.display=cur===0?'none':'block';
+
+  const saved=answers[q.id]||'';
+  let html='';
+  if(q.tag) html+=`<span class="tag">${q.tag}</span><br>`;
+  html+=`<div class="q-num">Q ${q.num}</div>`;
+  html+=`<div class="q-text">${q.text.replace(/\n/g,'<br>')}</div>`;
+
+  if(q.type==='textarea'){
+    html+=`<textarea class="${q.short?'short':'tall'}" id="ans" placeholder="자유롭게 작성해 주세요" oninput="save()">${saved}</textarea>`;
+  } else if(q.type==='choice'){
+    html+='<div class="choices">';
+    q.opts.forEach(o=>{
+      const sel=saved===o;
+      html+=`<button class="cb${sel?' sel':''}" onclick="pick(this,'${o.replace(/'/g,"\\'")}')"> ${o}</button>`;
+    });
+    html+='</div>';
+  } else if(q.type==='multi'){
+    html+='<div class="ml-group">';
+    q.inputs.forEach((lbl,i)=>{
+      const val=(Array.isArray(saved)&&saved[i])||'';
+      html+=`<div><div class="ml-label">${lbl}</div><input type="text" id="ans_${i}" placeholder="입력해 주세요" value="${val.replace(/"/g,'&quot;')}" oninput="saveMulti()"></div>`;
+    });
+    html+='</div>';
+  } else if(q.type==='multisel'){
+    const selArr=saved?saved.split('|||'):[];
+    html+='<div class="choices">';
+    q.opts.forEach(o=>{
+      const sel=selArr.includes(o);
+      html+=`<button class="cb${sel?' sel':''}" onclick="toggleSel(this,'${o.replace(/'/g,"\\'")}')"> ${o}</button>`;
+    });
+    html+='</div>';
+  }
+
+  document.getElementById('qbody').innerHTML=html;
+  updateNext();
+}
+
+function save(){
+  const el=document.getElementById('ans');
+  if(el) answers[Qs[cur].id]=el.value;
+  updateNext();
+}
+
+function saveMulti(){
+  const q=Qs[cur];
+  answers[q.id]=q.inputs.map((_,i)=>(document.getElementById('ans_'+i)||{value:''}).value);
+  updateNext();
+}
+
+function pick(btn,val){
+  document.querySelectorAll('.cb').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  answers[Qs[cur].id]=val;
+  updateNext();
+  if(cur<Qs.length-1) setTimeout(()=>go(1),280);
+}
+
+function toggleSel(btn,val){
+  btn.classList.toggle('sel');
+  const q=Qs[cur];
+  let arr=answers[q.id]?answers[q.id].split('|||'):[];
+  if(arr.includes(val)) arr=arr.filter(v=>v!==val);
+  else arr.push(val);
+  answers[q.id]=arr.join('|||');
+  updateNext();
+}
+
+function updateNext(){
+  const q=Qs[cur];
+  const a=answers[q.id];
+  let ok=false;
+  if(q.type==='textarea') ok=typeof a==='string'&&a.trim().length>0;
+  else if(q.type==='choice') ok=!!a;
+  else if(q.type==='multi') ok=Array.isArray(a)&&a.some(x=>x&&x.trim());
+  else if(q.type==='multisel') ok=typeof a==='string'&&a.length>0;
+  document.getElementById('btnN').disabled=!ok;
+  document.getElementById('btnN').textContent=cur===Qs.length-1?'완료 ✓':'다음 →';
+}
+
+function go(dir){
+  if(dir===1&&cur===Qs.length-1){
+    document.getElementById('quizSection').style.display='none';
+    document.getElementById('finalSection').style.display='block';
+    return;
+  }
+  cur=Math.max(0,Math.min(Qs.length-1,cur+dir));
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function buildDisplayText(){
+  return Qs.map(q=>{
+    const a=answers[q.id]||'';
+    let disp='';
+    if(Array.isArray(a)) disp=a.map((v,i)=>q.inputs[i]+': '+v).join(' / ');
+    else if(typeof a==='string'&&a.includes('|||')) disp=a.split('|||').join(', ');
+    else disp=a;
+    return `Q${q.num}. ${q.text.replace(/\n/g,' ')}\n→ ${disp||'(미응답)'}`;
+  }).join('\n\n');
+}
+
+function showResult(){
+  document.getElementById('sharePanel').style.display='none';
+  renderResult();
+  document.getElementById('resultWrap').scrollIntoView({behavior:'smooth'});
+}
+
+const BASE_URL=location.origin+location.pathname;
+
+function showShare(){
+  document.getElementById('resultWrap').style.display='none';
+  const panel=document.getElementById('sharePanel');
+  panel.style.display='block';
+  const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(answers))));
+  const url=BASE_URL+'#d='+encoded;
+  document.getElementById('shareUrl').textContent=url;
+  document.getElementById('copyBtn').textContent='링크 복사';
+  document.getElementById('copyBtn').style.background='#D4537E';
+  panel.scrollIntoView({behavior:'smooth'});
+}
+
+function copyLink(){
+  const url=document.getElementById('shareUrl').textContent;
+  const ta=document.createElement('textarea');
+  ta.value=url;
+  ta.style.position='absolute';ta.style.left='-9999px';
+  document.body.appendChild(ta);
+  ta.select();ta.setSelectionRange(0,99999);
+  try{
+    document.execCommand('copy');
+    const btn=document.getElementById('copyBtn');
+    btn.textContent='복사 완료!';
+    btn.style.background='#3B6D11';
+    setTimeout(()=>{btn.textContent='링크 복사';btn.style.background='#D4537E';},2500);
+  }catch(e){}
+  document.body.removeChild(ta);
+}
+
+function loadFromHash(){
+  const hash=location.hash;
+  if(!hash.startsWith('#d=')) return false;
+  try{
+    const decoded=JSON.parse(decodeURIComponent(escape(atob(hash.slice(3)))));
+    answers=decoded;
+    document.getElementById('quizSection').style.display='none';
+    document.getElementById('finalSection').style.display='block';
+    renderResult();
+    return true;
+  }catch(e){return false;}
+}
+
+function renderResult(){
+  const wrap=document.getElementById('resultWrap');
+  wrap.style.display='block';
+  let html='';
+  Qs.forEach(q=>{
+    const a=answers[q.id]||'';
+    let disp='';
+    if(Array.isArray(a)) disp=a.map((v,i)=>`${q.inputs[i]}: ${v}`).join('\n');
+    else if(typeof a==='string'&&a.includes('|||')) disp=a.split('|||').join(', ');
+    else disp=a;
+    html+=`<div class="r-item"><div class="r-q">Q${q.num} · ${q.text.replace(/\n/g,' ')}</div><div class="r-a">${disp||'(미응답)'}</div></div>`;
+  });
+  document.getElementById('resultList').innerHTML=html;
+  document.getElementById('finalSection').querySelector('.final').style.display='none';
+}
+
+function retry(){
+  answers={};cur=0;
+  document.getElementById('resultWrap').style.display='none';
+  document.getElementById('sharePanel').style.display='none';
+  document.getElementById('finalSection').style.display='none';
+  document.getElementById('quizSection').style.display='block';
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+if(!loadFromHash()) render();
+</script>
+</body>
+</html>
