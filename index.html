@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>내가 생각하는 결혼</title>
 <meta property="og:title" content="내가 생각하는 결혼은?">
-<meta property="og:description" content="궁금해 궁금해">
+<meta property="og:description" content="네 생각을 말해줘">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <style>
@@ -234,7 +234,7 @@ function go(dir){
 }
 
 
-const BASE_URL=location.origin+location.pathname;
+const BASE_URL=location.origin+location.pathname.replace('index.html','')+'result.html';
 
 function showResult(){
   document.getElementById('finalSection').style.display='none';
