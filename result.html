@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>내가 생각하는 결혼</title>
+<meta property="og:title" content="내가 생각하는 결혼은?">
+<meta property="og:description" content="결과 보러가기">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#FFF8FA;min-height:100vh}
+.wrap{max-width:480px;margin:0 auto;padding:20px 16px 40px}
+.header{text-align:center;padding:32px 0 24px}
+.header h1{font-size:20px;font-weight:600;color:#2C2C2A;letter-spacing:-0.3px}
+.view-result-card{background:#fff;border-radius:16px;padding:24px 20px;box-shadow:0 1px 12px rgba(212,83,126,0.08)}
+.result-header{font-size:20px;font-weight:700;color:#2C2C2A;margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid #F0E0E6}
+.r-item{padding:16px 0;border-bottom:1px solid #F5F0F2}
+.r-q{font-size:11px;color:#D4537E;font-weight:600;margin-bottom:6px;letter-spacing:0.5px}
+.r-a{font-size:15px;color:#2C2C2A;line-height:1.7;white-space:pre-wrap}
+.error{text-align:center;padding:60px 0;color:#888;font-size:15px;line-height:1.7}
+.btn-go{display:block;margin:28px auto 0;padding:14px 32px;border:none;border-radius:12px;background:#D4537E;color:#fff;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <div style="font-size:32px;margin-bottom:10px">💍</div>
+    <h1>내가 생각하는 결혼</h1>
+  </div>
+  <div id="content"></div>
+</div>
+
+<script>
+const Qs=[
+  {id:'q1',num:'1',text:'배우자로서 나의 매력'},
+  {id:'q2',num:'2',text:'내가 배우자에게 원하는 3가지'},
+  {id:'q3',num:'3',text:'결혼 전 상대에게 꼭 확인해 보고 싶은 3가지'},
+  {id:'q4',num:'4',text:'함께 살 집 마련은?'},
+  {id:'q5',num:'5',text:'함께 살고 싶은 동네는?'},
+  {id:'q6',num:'6',text:'내가 희망하는 우리 부부의 월수입은?'},
+  {id:'q7',num:'7',text:'경제 관리는 누가?'},
+  {id:'q8',num:'8',text:'결혼 후, 내가 원하는 수면 형태는?'},
+  {id:'q9',num:'9',text:'결혼 후, 명절을 보내고 싶은 방식은?'},
+  {id:'q10',num:'10',text:'반려동물과 함께 살 수 있는지?'},
+  {id:'q11',num:'11',text:'차 한 대, 소파 하나, 신발 한 켤레에 쓸 수 있는 최대 금액은?',inputs:['차 한 대','소파 하나','신발 한 켤레']},
+  {id:'q12',num:'12',text:'내가 생각하는 부부의 사생활 범위'},
+  {id:'q13',num:'13',text:'어느 날 배우자가 5억원의 빚이 생겼다고 말한다면'},
+  {id:'q14',num:'14',text:'출근 전날 밤 10시에 부부싸움이 났다면'},
+  {id:'q15',num:'15',text:'내가 원하는 가사 분담',inputs:['가장 자신 있는 집안일','가장 자신 없는 집안일']},
+  {id:'q16',num:'16',text:'결혼식은?'},
+  {id:'q17',num:'17',text:'배우자와 꼭 함께하고 싶은 일상의 한 장면'},
+  {id:'q18',num:'18',text:'내가 생각하는 결혼이란'},
+];
+
+function render(){
+  const hash=location.hash;
+  if(!hash.startsWith('#d=')){
+    document.getElementById('content').innerHTML=`<div class="error">결과 데이터가 없어요.<br>아래 버튼을 눌러 직접 응답해보세요.</div><a class="btn-go" href="https://jooyeon-konnybaby.github.io/marriage_test/">테스트 하러 가기</a>`;
+    return;
+  }
+  try{
+    const answers=JSON.parse(decodeURIComponent(escape(atob(hash.slice(3)))));
+    let html='<div class="view-result-card"><div class="result-header">💍 내가 생각하는 결혼</div>';
+    Qs.forEach(q=>{
+      const a=answers[q.id]||'';
+      let disp='';
+      if(Array.isArray(a)) disp=a.map((v,i)=>q.inputs[i]+': '+v).join('\n');
+      else if(typeof a==='string'&&a.includes('|||')) disp=a.split('|||').join(', ');
+      else disp=a;
+      html+=`<div class="r-item"><div class="r-q">Q${q.num} · ${q.text}</div><div class="r-a">${disp||'(미응답)'}</div></div>`;
+    });
+    html+='<a class="btn-go" href="https://jooyeon-konnybaby.github.io/marriage_test/">나도 응답하기</a></div>';
+    document.getElementById('content').innerHTML=html;
+  }catch(e){
+    document.getElementById('content').innerHTML=`<div class="error">링크가 올바르지 않아요.</div><a class="btn-go" href="https://jooyeon-konnybaby.github.io/marriage_test/">테스트 하러 가기</a>`;
+  }
+}
+
+render();
+</script>
+</body>
+</html>
